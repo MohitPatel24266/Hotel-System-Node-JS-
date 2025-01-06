@@ -1,3 +1,4 @@
+
 // var fs = require('fs');
 // var os=require('os');
 
@@ -39,7 +40,7 @@ const menuRouter = require("./routes/menuRoutes");
 app.use("/menu",menuRouter);
 
 
-
+//listining on 3000 port
 app.listen(port, () => {
     console.log(`Server listining in ${port} : http://localhost:3000/person`)
 });
