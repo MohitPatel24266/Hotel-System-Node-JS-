@@ -1,5 +1,5 @@
 //db.js
-//qfe74QikdMyvwm0t
+
 const mongoose = require('mongoose');
 require('dotenv').config();
 const mongoURL=process.env.MONGO_URL;
