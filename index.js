@@ -27,8 +27,8 @@ app.get('/', (req, res) => {
     res.send('hello world')
 })
 const db = require('./db');
-const Person = require('./models/Person');
-const MenuItem = require('./models/Menu');
+// const Person = require('./models/Person');
+// const MenuItem = require('./models/Menu');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
