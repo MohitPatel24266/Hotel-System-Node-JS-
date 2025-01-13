@@ -1,45 +1,38 @@
-
-// var fs = require('fs');
-// var os=require('os');
-
-// var user= os.userInfo();
-// console.log(user);
-
-// fs.appendFile('text-1',"Hello mohit\n",()=>{
-//     console.log(`hello ${user.username}!` );
-// })
-
-// app.get('/get',(req,res)=>{
-//     let obj={
-//         name:"mohit",
-//         age:22,
-//         is_studying:true
-//     }
-//     res.send(obj);
-// })
-
+//index.js
 const express = require('express');
 require('dotenv').config();
-
 const app = express();
 const port = process.env.PORT||3000;
-app.get('/', (req, res) => {
-    res.send('hello world')
-})
-const db = require('./db');
-// const Person = require('./models/Person');
-// const MenuItem = require('./models/Menu');
 
+//Database Connection
+const db = require('./db');
+
+//Body-Parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+//Middleware 
+const logReq=(req,res,next)=>{
+    console.log(`[${new Date().toLocaleDateString()}] Request Move to : ${req.originalUrl}`);
+    next();
+}
+app.use(logReq);
+
+//Passport Authentication Initialization
+const passport=require('./auth');
+app.use(passport.initialize());
+const localAuthMiddleware=passport.authenticate('local',{session:false})
+app.get('/',(req, res) => {
+    res.send('hello world')
+})
+
+//Person Route
 const personRoute=require("./routes/personRoutes");
 app.use('/person',personRoute);
 
-
+//Menu Route
 const menuRouter = require("./routes/menuRoutes");
 app.use("/menu",menuRouter);
-
 
 //listining on 3000 port
 app.listen(port, () => {
